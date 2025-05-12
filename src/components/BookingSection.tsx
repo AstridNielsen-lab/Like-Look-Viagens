@@ -106,11 +106,15 @@ export const BookingSection: React.FC = () => {
                 <h4 className="font-semibold mb-3">Precisa de ajuda?</h4>
                 <div className="flex items-center mb-3">
                   <Phone className="h-5 w-5 mr-3 text-blue-300" />
-                  <span>(11) 3456-7890</span>
+                  <div>
+                    <p>(11) 3680-8030</p>
+                    <p>WhatsApp: (11) 99294-6628</p>
+                    <p>WhatsApp: (11) 97060-3441</p>
+                  </div>
                 </div>
                 <div className="flex items-center">
                   <Mail className="h-5 w-5 mr-3 text-blue-300" />
-                  <span>contato@likelookviagens.com.br</span>
+                  <span>juliocamposmachado@gmail.com</span>
                 </div>
               </div>
             </div>
