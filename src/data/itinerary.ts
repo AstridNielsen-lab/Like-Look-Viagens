@@ -29,7 +29,7 @@ export const itineraryData: DayActivity[] = [
       "Visita ao tesouro imperial e harém do palácio",
       "Almoço em restaurante com vista para o Bósforo"
     ],
-    image: "https://images.pexels.com/photos/13904533/pexels-photo-13904533.jpeg"
+    image: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/palacio%20topkapi.jpg"
   },
   {
     day: 3,
