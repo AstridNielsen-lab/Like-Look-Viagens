@@ -41,7 +41,7 @@ export const itineraryData: DayActivity[] = [
       "Visita ao icônico bonde vermelho de Taksim",
       "Tempo livre para compras e experiência gastronômica local"
     ],
-    image: "https://images.pexels.com/photos/10324767/pexels-photo-10324767.jpeg"
+    image: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/Cisterna%20da%20Bas%C3%ADlica.jpeg"
   },
   {
     day: 4,
