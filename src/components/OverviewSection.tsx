@@ -12,6 +12,11 @@ export const OverviewSection: React.FC = () => {
             Um roteiro exclusivo que combina os tesouros históricos, culturais e arquitetônicos de Istambul
             com experiências autênticas e momentos inesquecíveis.
           </p>
+          <div className="mt-6">
+            <div className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full text-xl font-semibold">
+              A partir de R$ 12.000,00 por pessoa
+            </div>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
