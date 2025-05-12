@@ -65,7 +65,7 @@ export const itineraryData: DayActivity[] = [
       "Experiência sensorial no Bazar das Especiarias",
       "Degustação de delícias turcas e chá de maçã"
     ],
-    image: "https://images.pexels.com/photos/4153361/pexels-photo-4153361.jpeg"
+    image: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/bosforo%20cruzeiro%20istanbul.jpg"
   },
   {
     day: 6,
