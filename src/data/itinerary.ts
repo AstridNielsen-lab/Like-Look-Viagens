@@ -17,7 +17,7 @@ export const itineraryData: DayActivity[] = [
       "Visita guiada à Basílica de Santa Sofia",
       "Jantar de boas-vindas com gastronomia tradicional turca"
     ],
-    image: "https://images.pexels.com/photos/3363341/pexels-photo-3363341.jpeg"
+    image: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/basilica%20santa%20sofia%20istanbul.jpg"
   },
   {
     day: 2,
