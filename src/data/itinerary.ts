@@ -53,7 +53,7 @@ export const itineraryData: DayActivity[] = [
       "Visita ao Museu de Arte Moderna",
       "Jantar em restaurante com música tradicional turca"
     ],
-    image: "https://images.pexels.com/photos/14896587/pexels-photo-14896587.jpeg"
+    image: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/torre%20galata.jpg"
   },
   {
     day: 5,
