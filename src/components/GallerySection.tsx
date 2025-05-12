@@ -16,7 +16,7 @@ const galleryImages = [
   },
   {
     id: 3,
-    src: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/palacio%20topkapi.jpg",
+    src: "https://images.musement.com/cover/0014/100/thumb_1399069_cover_header.jpeg",
     alt: "Palácio de Topkapi",
     title: "Palácio de Topkapi"
   },
