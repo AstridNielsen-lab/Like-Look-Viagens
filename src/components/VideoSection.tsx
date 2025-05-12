@@ -31,7 +31,7 @@ export const VideoSection: React.FC = () => {
             onClick={handlePlay}
           >
             <img 
-              src="https://images.pexels.com/photos/3879071/pexels-photo-3879071.jpeg" 
+              src="https://images.pexels.com/photos/2925146/pexels-photo-2925146.jpeg" 
               alt="Vídeo sobre Istambul" 
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
