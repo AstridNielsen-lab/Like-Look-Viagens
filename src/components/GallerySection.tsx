@@ -4,49 +4,49 @@ import { X } from 'lucide-react';
 const galleryImages = [
   {
     id: 1,
-    src: "https://images.pexels.com/photos/1549326/pexels-photo-1549326.jpeg",
+    src: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/bsfia.jpg",
     alt: "Basílica de Santa Sofia",
     title: "Basílica de Santa Sofia"
   },
   {
     id: 2,
-    src: "https://images.pexels.com/photos/3889843/pexels-photo-3889843.jpeg",
+    src: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/palacio%20topkapi.jpg",
     alt: "Mesquita Azul",
     title: "Mesquita Azul"
   },
   {
     id: 3,
-    src: "https://images.pexels.com/photos/753339/pexels-photo-753339.jpeg",
+    src: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/palacio%20topkapi.jpg",
     alt: "Palácio de Topkapi",
     title: "Palácio de Topkapi"
   },
   {
     id: 4,
-    src: "https://images.pexels.com/photos/2225442/pexels-photo-2225442.jpeg",
+    src: "https://s2.glbimg.com/uFzP1EBXB-y5pMTK6YiTbENlVKJSLRiIbHCxpskA9lYwKrmh_E2P2aFVLX8bz6Kq/e.glbimg.com/og/ed/f/original/2013/05/04/luiza-02.jpg",
     alt: "Grande Bazar",
     title: "Grande Bazar"
   },
   {
     id: 5,
-    src: "https://images.pexels.com/photos/4101351/pexels-photo-4101351.jpeg",
+    src: "https://i.pinimg.com/originals/d2/d4/71/d2d471a1fe60b2519e4670baf955d8c7.jpg",
     alt: "Bazar das Especiarias",
     title: "Bazar das Especiarias"
   },
   {
     id: 6,
-    src: "https://images.pexels.com/photos/1112304/pexels-photo-1112304.jpeg",
+    src: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/cebt.jpg",
     alt: "Cruzeiro pelo Bósforo",
     title: "Cruzeiro pelo Bósforo"
   },
   {
     id: 7,
-    src: "https://images.pexels.com/photos/13094291/pexels-photo-13094291.jpeg",
+    src: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/palacio%20istanbul.jpg",
     alt: "Palácio Dolmabahçe",
     title: "Palácio Dolmabahçe"
   },
   {
     id: 8,
-    src: "https://images.pexels.com/photos/2570063/pexels-photo-2570063.jpeg",
+    src: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/torre%20galata.jpg",
     alt: "Torre Galata",
     title: "Torre Galata"
   }
