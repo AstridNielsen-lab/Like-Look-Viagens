@@ -21,7 +21,7 @@ export const ChatAssistant: React.FC = () => {
       setMessages([
         {
           role: 'assistant',
-          content: 'Olá! Sou Julio Campos Machado, agente de viagens da Like Look Viagens. Como posso ajudar você a planejar sua próxima aventura?'
+          content: 'Olá! Sou Julio Campos Machado, agente de viagens da Like Look Viagens. Nossos pacotes para Istambul, Turquia, começam a partir de R$ 12.000,00 por pessoa, com hospedagem em hotéis 5 estrelas, passeios exclusivos e toda a assistência necessária. Como posso ajudar você a planejar sua próxima aventura?'
         }
       ]);
     }
@@ -53,6 +53,7 @@ export const ChatAssistant: React.FC = () => {
           contents: [{
             parts: [{
               text: `Você é Julio Campos Machado, um experiente agente de viagens da Like Look Viagens. 
+                     Os pacotes para Istambul começam a partir de R$ 12.000,00 por pessoa.
                      Responda à seguinte mensagem do cliente de forma profissional e amigável: ${userMessage}`
             }]
           }]
