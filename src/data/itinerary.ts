@@ -89,6 +89,6 @@ export const itineraryData: DayActivity[] = [
       "Visita à Mesquita Süleymaniye",
       "Transfer para o aeroporto e assistência para embarque"
     ],
-    image: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/ponte%20istanbul.jpg"
+    image: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/pgtutk.jpg"
   }
 ];
