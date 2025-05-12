@@ -77,7 +77,7 @@ export const itineraryData: DayActivity[] = [
       "Visita ao Museu de Arqueologia de Istambul",
       "Compras em boutiques de designers turcos contemporâneos"
     ],
-    image: "https://images.pexels.com/photos/2127673/pexels-photo-2127673.jpeg"
+    image: "https://raw.githubusercontent.com/AstridNielsen-lab/Like-Look-Viagens/refs/heads/index/src/data/palacio%20istanbul.jpg"
   },
   {
     day: 7,
