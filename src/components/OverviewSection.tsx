@@ -49,7 +49,7 @@ export const OverviewSection: React.FC = () => {
               <Users className="h-6 w-6 text-blue-600" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">Tamanho do Grupo</h3>
-            <p className="text-gray-600">Grupos de até 16 pessoas para uma experiência personalizada</p>
+            <p className="text-gray-600">Grupos de até 20 pessoas para uma experiência personalizada</p>
           </div>
         </div>
         
