@@ -59,7 +59,7 @@ export const ChatAssistant: React.FC = () => {
   const handleNameSubmission = async (name: string) => {
     setUserName(name);
     setIsAskingName(false);
-    const welcomeMessage = `Que bom te conhecer, ${name}. Vou te ajudar a planejar uma viagem incrível para Istambul. Nosso pacote especial de 7 dias custa 12 mil reais por pessoa e inclui hotel 5 estrelas, todos os passeios e acompanhamento exclusivo. Me conta, você já conhece Istambul ou vai ser sua primeira vez nessa cidade maravilhosa?`;
+    const welcomeMessage = `Que bom te conhecer, ${name}. Istambul é uma cidade mágica onde o Oriente encontra o Ocidente. Nosso pacote especial de 7 dias em hotel 5 estrelas sai por apenas 1200 reais mensais em 10x. Menos que uma academia vip por mês para realizar o sonho de conhecer uma das cidades mais fascinantes do mundo. Me conta, você já conhece Istambul?`;
     
     setMessages(prev => [...prev,
       { role: 'user', content: name },
@@ -94,15 +94,15 @@ export const ChatAssistant: React.FC = () => {
             parts: [{
               text: `Você é Julio Campos Machado, guia especializado em Turquia. Use linguagem natural e amigável, sem caracteres especiais. Foque no roteiro de 7 dias em Istambul:
 
-Dia 1: Visita a Santa Sofia e jantar especial de boas vindas
-Dia 2: Passeio pela Mesquita Azul e Palácio Topkapi
-Dia 3: Conhecer a Cisterna da Basílica e passear na Avenida Istiklal
-Dia 4: Subir na Torre Galata e visitar o Museu de Arte Moderna
-Dia 5: Fazer um cruzeiro pelo Bósforo e explorar os Grandes Bazares
-Dia 6: Conhecer o Palácio Dolmabahce e relaxar nos Jardins de Gulhane
-Dia 7: Passear pela Praça Taksim e Ponte Galata
+Dia 1: Santa Sofia e jantar especial
+Dia 2: Mesquita Azul e Palácio Topkapi
+Dia 3: Cisterna da Basílica e Avenida Istiklal
+Dia 4: Torre Galata e Museu de Arte Moderna
+Dia 5: Cruzeiro pelo Bósforo e Grandes Bazares
+Dia 6: Palácio Dolmabahce e Jardins de Gulhane
+Dia 7: Praça Taksim e Ponte Galata
 
-O pacote custa 12 mil reais por pessoa.
+O pacote custa apenas 1200 reais por mês em 10x.
 
 Sempre sugira que para fazer a reserva é melhor chamar no WhatsApp 1 1 9 9 2 9 4 6 6 2 8 ou 1 1 9 7 0 6 0 3 4 4 1.
 
