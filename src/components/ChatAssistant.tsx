@@ -22,7 +22,7 @@ export const ChatAssistant: React.FC = () => {
     if (isOpen && messages.length === 0) {
       const initialMessage = {
         role: 'assistant',
-        content: 'Olá! Sou Julio Campos Machado, especialista em viagens para Turquia. Antes de começarmos, poderia me dizer seu nome?'
+        content: 'Oi, eu sou Julio Campos Machado, especialista em viagens para Turquia. Para começarmos nossa conversa, qual é o seu nome?'
       };
       setMessages([initialMessage]);
       speak(initialMessage.content);
@@ -35,15 +35,13 @@ export const ChatAssistant: React.FC = () => {
 
   const speak = (text: string) => {
     if ('speechSynthesis' in window) {
-      // Cancel any ongoing speech
       window.speechSynthesis.cancel();
 
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'pt-BR';
-      utterance.rate = 1;
+      utterance.rate = 0.9;
       utterance.pitch = 1;
 
-      // Get available voices and select a Portuguese voice if available
       const voices = window.speechSynthesis.getVoices();
       const portugueseVoice = voices.find(voice => voice.lang.includes('pt'));
       if (portugueseVoice) {
@@ -61,7 +59,7 @@ export const ChatAssistant: React.FC = () => {
   const handleNameSubmission = async (name: string) => {
     setUserName(name);
     setIsAskingName(false);
-    const welcomeMessage = `Muito prazer, ${name}! Estou aqui para te ajudar a planejar uma experiência inesquecível em Istambul. Nosso pacote exclusivo de 7 dias começa a partir de R$ 12.000,00 por pessoa, incluindo hospedagem em hotéis 5 estrelas, passeios guiados e toda assistência necessária. Você já conhece Istambul ou será sua primeira vez visitando esta cidade mágica?`;
+    const welcomeMessage = `Que bom te conhecer, ${name}. Vou te ajudar a planejar uma viagem incrível para Istambul. Nosso pacote especial de 7 dias custa 12 mil reais por pessoa e inclui hotel 5 estrelas, todos os passeios e acompanhamento exclusivo. Me conta, você já conhece Istambul ou vai ser sua primeira vez nessa cidade maravilhosa?`;
     
     setMessages(prev => [...prev,
       { role: 'user', content: name },
@@ -94,22 +92,22 @@ export const ChatAssistant: React.FC = () => {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Você é Julio Campos Machado, um experiente agente de viagens especializado em Turquia.
-                     Mantenha o foco no roteiro de 7 dias em Istambul que inclui:
-                     - Dia 1: Santa Sofia e jantar de boas-vindas
-                     - Dia 2: Mesquita Azul e Palácio Topkapi
-                     - Dia 3: Cisterna da Basílica e Avenida İstiklal
-                     - Dia 4: Torre Galata e Museu de Arte Moderna
-                     - Dia 5: Cruzeiro pelo Bósforo e Grandes Bazares
-                     - Dia 6: Palácio Dolmabahçe e Jardins de Gulhane
-                     - Dia 7: Praça Taksim e Ponte Galata
-                     
-                     O pacote custa R$ 12.000,00 por pessoa.
-                     
-                     Sempre sugira que o cliente entre em contato pelo WhatsApp (11) 99294-6628 ou (11) 97060-3441 para finalizar a reserva.
-                     
-                     Nome do cliente: ${userName}
-                     Mensagem do cliente: ${userMessage}`
+              text: `Você é Julio Campos Machado, guia especializado em Turquia. Use linguagem natural e amigável, sem caracteres especiais. Foque no roteiro de 7 dias em Istambul:
+
+Dia 1: Visita a Santa Sofia e jantar especial de boas vindas
+Dia 2: Passeio pela Mesquita Azul e Palácio Topkapi
+Dia 3: Conhecer a Cisterna da Basílica e passear na Avenida Istiklal
+Dia 4: Subir na Torre Galata e visitar o Museu de Arte Moderna
+Dia 5: Fazer um cruzeiro pelo Bósforo e explorar os Grandes Bazares
+Dia 6: Conhecer o Palácio Dolmabahce e relaxar nos Jardins de Gulhane
+Dia 7: Passear pela Praça Taksim e Ponte Galata
+
+O pacote custa 12 mil reais por pessoa.
+
+Sempre sugira que para fazer a reserva é melhor chamar no WhatsApp 11 99294 6628 ou 11 97060 3441.
+
+Nome do cliente: ${userName}
+Mensagem: ${userMessage}`
             }]
           }]
         })
@@ -122,7 +120,7 @@ export const ChatAssistant: React.FC = () => {
       speak(assistantResponse);
     } catch (error) {
       console.error('Error:', error);
-      const errorMessage = 'Desculpe, estou com dificuldades técnicas no momento. Por favor, entre em contato diretamente pelo WhatsApp (11) 99294-6628 ou (11) 97060-3441 para conversarmos sobre sua viagem.';
+      const errorMessage = 'Desculpe, estou com um probleminha técnico agora. Por favor, me chama no WhatsApp 11 99294 6628 ou 11 97060 3441 para eu te ajudar com sua viagem.';
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: errorMessage
@@ -194,7 +192,7 @@ export const ChatAssistant: React.FC = () => {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder={isAskingName ? "Digite seu nome..." : "Digite sua mensagem..."}
+                placeholder={isAskingName ? "Digite seu nome" : "Digite sua mensagem"}
                 className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
