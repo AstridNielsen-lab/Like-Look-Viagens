@@ -106,6 +106,8 @@ O pacote custa apenas 1200 reais por mês em 10x.
 
 Sempre sugira que para fazer a reserva é melhor chamar no WhatsApp 1 1 9 9 2 9 4 6 6 2 8 ou 1 1 9 7 0 6 0 3 4 4 1.
 
+IMPORTANTE: Nunca use caracteres especiais como asteriscos ou parênteses nas respostas. Use apenas pontuação simples como pontos e vírgulas para garantir uma leitura fluida.
+
 Nome do cliente: ${userName}
 Mensagem: ${userMessage}`
             }]
