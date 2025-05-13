@@ -11,6 +11,8 @@ export const ChatAssistant: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [isAskingName, setIsAskingName] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
@@ -18,12 +20,12 @@ export const ChatAssistant: React.FC = () => {
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      setMessages([
-        {
-          role: 'assistant',
-          content: 'Olá! Sou Julio Campos Machado, agente de viagens da Like Look Viagens. Nossos pacotes para Istambul, Turquia, começam a partir de R$ 12.000,00 por pessoa, com hospedagem em hotéis 5 estrelas, passeios exclusivos e toda a assistência necessária. Como posso ajudar você a planejar sua próxima aventura?'
-        }
-      ]);
+      const initialMessage = {
+        role: 'assistant',
+        content: 'Olá! Sou Julio Campos Machado, especialista em viagens para Turquia. Antes de começarmos, poderia me dizer seu nome?'
+      };
+      setMessages([initialMessage]);
+      speak(initialMessage.content);
     }
   }, [isOpen]);
 
@@ -31,8 +33,42 @@ export const ChatAssistant: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
+  const speak = (text: string) => {
+    if ('speechSynthesis' in window) {
+      // Cancel any ongoing speech
+      window.speechSynthesis.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'pt-BR';
+      utterance.rate = 1;
+      utterance.pitch = 1;
+
+      // Get available voices and select a Portuguese voice if available
+      const voices = window.speechSynthesis.getVoices();
+      const portugueseVoice = voices.find(voice => voice.lang.includes('pt'));
+      if (portugueseVoice) {
+        utterance.voice = portugueseVoice;
+      }
+
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleNameSubmission = async (name: string) => {
+    setUserName(name);
+    setIsAskingName(false);
+    const welcomeMessage = `Muito prazer, ${name}! Estou aqui para te ajudar a planejar uma experiência inesquecível em Istambul. Nosso pacote exclusivo de 7 dias começa a partir de R$ 12.000,00 por pessoa, incluindo hospedagem em hotéis 5 estrelas, passeios guiados e toda assistência necessária. Você já conhece Istambul ou será sua primeira vez visitando esta cidade mágica?`;
+    
+    setMessages(prev => [...prev,
+      { role: 'user', content: name },
+      { role: 'assistant', content: welcomeMessage }
+    ]);
+
+    speak(welcomeMessage);
   };
 
   const handleSendMessage = async () => {
@@ -43,6 +79,12 @@ export const ChatAssistant: React.FC = () => {
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
+    if (isAskingName) {
+      await handleNameSubmission(userMessage);
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch(`${API_URL}?key=${API_KEY}`, {
         method: 'POST',
@@ -52,9 +94,22 @@ export const ChatAssistant: React.FC = () => {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Você é Julio Campos Machado, um experiente agente de viagens da Like Look Viagens. 
-                     Os pacotes para Istambul começam a partir de R$ 12.000,00 por pessoa.
-                     Responda à seguinte mensagem do cliente de forma profissional e amigável: ${userMessage}`
+              text: `Você é Julio Campos Machado, um experiente agente de viagens especializado em Turquia.
+                     Mantenha o foco no roteiro de 7 dias em Istambul que inclui:
+                     - Dia 1: Santa Sofia e jantar de boas-vindas
+                     - Dia 2: Mesquita Azul e Palácio Topkapi
+                     - Dia 3: Cisterna da Basílica e Avenida İstiklal
+                     - Dia 4: Torre Galata e Museu de Arte Moderna
+                     - Dia 5: Cruzeiro pelo Bósforo e Grandes Bazares
+                     - Dia 6: Palácio Dolmabahçe e Jardins de Gulhane
+                     - Dia 7: Praça Taksim e Ponte Galata
+                     
+                     O pacote custa R$ 12.000,00 por pessoa.
+                     
+                     Sempre sugira que o cliente entre em contato pelo WhatsApp (11) 99294-6628 ou (11) 97060-3441 para finalizar a reserva.
+                     
+                     Nome do cliente: ${userName}
+                     Mensagem do cliente: ${userMessage}`
             }]
           }]
         })
@@ -64,12 +119,15 @@ export const ChatAssistant: React.FC = () => {
       const assistantResponse = data.candidates[0].content.parts[0].text;
 
       setMessages(prev => [...prev, { role: 'assistant', content: assistantResponse }]);
+      speak(assistantResponse);
     } catch (error) {
       console.error('Error:', error);
+      const errorMessage = 'Desculpe, estou com dificuldades técnicas no momento. Por favor, entre em contato diretamente pelo WhatsApp (11) 99294-6628 ou (11) 97060-3441 para conversarmos sobre sua viagem.';
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: 'Desculpe, estou com dificuldades técnicas no momento. Por favor, tente novamente mais tarde ou entre em contato através dos nossos telefones.'
+        content: errorMessage
       }]);
+      speak(errorMessage);
     }
 
     setIsLoading(false);
@@ -136,7 +194,7 @@ export const ChatAssistant: React.FC = () => {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Digite sua mensagem..."
+                placeholder={isAskingName ? "Digite seu nome..." : "Digite sua mensagem..."}
                 className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
