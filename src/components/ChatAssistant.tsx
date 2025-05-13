@@ -104,7 +104,7 @@ Dia 7: Passear pela Praça Taksim e Ponte Galata
 
 O pacote custa 12 mil reais por pessoa.
 
-Sempre sugira que para fazer a reserva é melhor chamar no WhatsApp 11 99294 6628 ou 11 97060 3441.
+Sempre sugira que para fazer a reserva é melhor chamar no WhatsApp 1 1 9 9 2 9 4 6 6 2 8 ou 1 1 9 7 0 6 0 3 4 4 1.
 
 Nome do cliente: ${userName}
 Mensagem: ${userMessage}`
@@ -120,7 +120,7 @@ Mensagem: ${userMessage}`
       speak(assistantResponse);
     } catch (error) {
       console.error('Error:', error);
-      const errorMessage = 'Desculpe, estou com um probleminha técnico agora. Por favor, me chama no WhatsApp 11 99294 6628 ou 11 97060 3441 para eu te ajudar com sua viagem.';
+      const errorMessage = 'Desculpe, estou com um probleminha técnico agora. Por favor, me chama no WhatsApp 1 1 9 9 2 9 4 6 6 2 8 ou 1 1 9 7 0 6 0 3 4 4 1 para eu te ajudar com sua viagem.';
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: errorMessage
