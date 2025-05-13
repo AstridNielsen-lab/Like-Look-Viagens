@@ -15,16 +15,16 @@ export const Footer: React.FC = () => {
               Sua operadora de turismo especializada em experiências únicas e inesquecíveis em destinos ao redor do mundo.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <a href="https://www.facebook.com/likelooksolutions" className="text-gray-400 hover:text-white transition-colors duration-200">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <a href="https://www.instagram.com/radiotatuapefm" className="text-gray-400 hover:text-white transition-colors duration-200">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <a href="https://x.com/DevJulioMachado" className="text-gray-400 hover:text-white transition-colors duration-200">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <a href="https://www.youtube.com/@JulioCamposMachado" className="text-gray-400 hover:text-white transition-colors duration-200">
                 <Youtube className="h-5 w-5" />
               </a>
             </div>
@@ -44,11 +44,16 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Destinos Populares</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Turquia</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Grécia</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Itália</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Egito</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Marrocos</a></li>
+              <li><a href="https://wa.me/5511970603441?text=Olá,%20gostaria%20de%20mais%20informações%20sobre%20a%20Like%20Look%20Viagens%20%7C%20Operadora%20de%20Turismo.
+" className="text-gray-400 hover:text-white transition-colors duration-200">Turquia</a></li>
+              <li><a href="https://wa.me/5511970603441?text=Olá,%20gostaria%20de%20mais%20informações%20sobre%20a%20Like%20Look%20Viagens%20%7C%20Operadora%20de%20Turismo.
+" className="text-gray-400 hover:text-white transition-colors duration-200">Grécia</a></li>
+              <li><a href="https://wa.me/5511970603441?text=Olá,%20gostaria%20de%20mais%20informações%20sobre%20a%20Like%20Look%20Viagens%20%7C%20Operadora%20de%20Turismo.
+" className="text-gray-400 hover:text-white transition-colors duration-200">Itália</a></li>
+              <li><a href="https://wa.me/5511970603441?text=Olá,%20gostaria%20de%20mais%20informações%20sobre%20a%20Like%20Look%20Viagens%20%7C%20Operadora%20de%20Turismo.
+" className="text-gray-400 hover:text-white transition-colors duration-200">Egito</a></li>
+              <li><a href="https://wa.me/5511970603441?text=Olá,%20gostaria%20de%20mais%20informações%20sobre%20a%20Like%20Look%20Viagens%20%7C%20Operadora%20de%20Turismo.
+" className="text-gray-400 hover:text-white transition-colors duration-200">Marrocos</a></li>
             </ul>
           </div>
           
