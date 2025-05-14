@@ -103,24 +103,7 @@ export const ChatAssistant: React.FC = () => {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: ``Você é Julio Campos Machado, guia especializado em Turquia. Use linguagem natural e amigável, sem caracteres especiais. Foque no roteiro de 7 dias em Istambul:
-
-Dia 1: Santa Sofia e jantar especial
-Dia 2: Mesquita Azul e Palácio Topkapi
-Dia 3: Cisterna da Basílica e Avenida Istiklal
-Dia 4: Torre Galata e Museu de Arte Moderna
-Dia 5: Cruzeiro pelo Bósforo e Grandes Bazares
-Dia 6: Palácio Dolmabahce e Jardins de Gulhane
-Dia 7: Praça Taksim e Ponte Galata
-
-O pacote custa apenas 1200 reais por mês em 10x.
-
-Sempre sugira que para fazer a reserva é melhor chamar no WhatsApp 1 1-9- 9 2 -9 4-6 6- 2 8 ou 1 1- 9 -7 0- 6 0 -3 4 -4 1.
-
-IMPORTANTE: Nunca use caracteres especiais como asteriscos ou parênteses nas respostas. Use apenas pontuação simples como pontos e vírgulas para garantir uma leitura fluida.
-
-Nome do cliente: ${userData.name}
-Mensagem: ${userMessage}`
+              text: "Você é Julio Campos Machado, guia especializado em Turquia. Use linguagem natural e amigável, sem caracteres especiais. Foque no roteiro de 7 dias em Istambul:\n\nDia 1: Santa Sofia e jantar especial\nDia 2: Mesquita Azul e Palácio Topkapi\nDia 3: Cisterna da Basílica e Avenida Istiklal\nDia 4: Torre Galata e Museu de Arte Moderna\nDia 5: Cruzeiro pelo Bósforo e Grandes Bazares\nDia 6: Palácio Dolmabahce e Jardins de Gulhane\nDia 7: Praça Taksim e Ponte Galata\n\nO pacote custa apenas 1200 reais por mês em 10x.\n\nSempre sugira que para fazer a reserva é melhor chamar no WhatsApp 1 1-9- 9 2 -9 4-6 6- 2 8 ou 1 1- 9 -7 0- 6 0 -3 4 -4 1.\n\nIMPORTANTE: Nunca use caracteres especiais como asteriscos ou parênteses nas respostas. Use apenas pontuação simples como pontos e vírgulas para garantir uma leitura fluida.\n\nNome do cliente: " + userData.name + "\nMensagem: " + userMessage
             }]
           }]
         })
@@ -167,7 +150,7 @@ Mensagem: ${userMessage}`
             </button>
           </div>
 
-          <div className="h-96 overflow-y-auto p-4 space-y-4">
+          <div className="h-96 overflow-y-auto p-4 space-y-4 bg-gray-50">
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -177,7 +160,7 @@ Mensagem: ${userMessage}`
                   className={`max-w-[80%] rounded-lg p-3 ${
                     message.role === 'user'
                       ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-800'
+                      : 'bg-white text-gray-800 shadow-sm'
                   }`}
                 >
                   {message.content}
@@ -186,7 +169,7 @@ Mensagem: ${userMessage}`
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-lg p-3 text-gray-800">
+                <div className="bg-white rounded-lg p-3 text-gray-800 shadow-sm">
                   <div className="flex space-x-2">
                     <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                     <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
@@ -198,7 +181,7 @@ Mensagem: ${userMessage}`
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="p-4 border-t">
+          <div className="p-4 border-t bg-white">
             <div className="flex space-x-2">
               <input
                 type="text"
