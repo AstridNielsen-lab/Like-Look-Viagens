@@ -21,25 +21,42 @@ export const BookingSection: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
     
-    // In a real application, you would send this data to your backend/API
-    console.log('Form data submitted:', formData);
-    
-    // Reset form after submission
-    setTimeout(() => {
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        travelers: '2',
-        departureDate: '',
-        message: '',
-      });
-      setFormSubmitted(false);
-    }, 5000);
+    try {
+      // Create email content
+      const emailContent = `
+        Nova Solicitação de Reserva:
+        
+        Nome: ${formData.name}
+        Email: ${formData.email}
+        Telefone: ${formData.phone}
+        Número de Viajantes: ${formData.travelers}
+        Data de Partida: ${formData.departureDate}
+        Mensagem: ${formData.message}
+      `;
+
+      // Send email using mailto
+      const mailtoLink = `mailto:juliocamposmachado@gmail.com?subject=Nova Solicitação de Reserva - ${formData.name}&body=${encodeURIComponent(emailContent)}`;
+      window.location.href = mailtoLink;
+      
+      // Reset form after submission
+      setTimeout(() => {
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          travelers: '2',
+          departureDate: '',
+          message: '',
+        });
+        setFormSubmitted(false);
+      }, 5000);
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
   };
 
   return (
