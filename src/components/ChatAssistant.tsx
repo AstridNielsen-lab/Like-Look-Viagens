@@ -6,48 +6,28 @@ interface Message {
   content: string;
 }
 
-interface UserData {
-  name: string;
-  hasGreeted: boolean;
-}
-
 export const ChatAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [userData, setUserData] = useState<UserData>(() => {
-    const saved = localStorage.getItem('userData');
-    return saved ? JSON.parse(saved) : { name: '', hasGreeted: false };
-  });
+  const [userName, setUserName] = useState('');
+  const [isAskingName, setIsAskingName] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
   const API_KEY = "AIzaSyAuFi5KtPsMJI5IC8c5FjvYD5IbuBdwH_U";
 
   useEffect(() => {
-    if (isOpen) {
-      const savedMessages = localStorage.getItem('chatMessages');
-      if (savedMessages) {
-        setMessages(JSON.parse(savedMessages));
-      } else if (!userData.hasGreeted) {
-        const initialMessage = {
-          role: 'assistant',
-          content: 'Oi, eu sou Julio Campos Machado, especialista em viagens para Turquia. Para começarmos nossa conversa, qual é o seu nome?'
-        };
-        setMessages([initialMessage]);
-        speak(initialMessage.content);
-      }
+    if (isOpen && messages.length === 0) {
+      const initialMessage = {
+        role: 'assistant',
+        content: 'Olá! Sou Julio Campos Machado, especialista em viagens para Turquia. Para começarmos nossa conversa, qual é o seu nome?'
+      };
+      setMessages([initialMessage]);
+      speak(initialMessage.content);
     }
-  }, [isOpen, userData.hasGreeted]);
-
-  useEffect(() => {
-    localStorage.setItem('chatMessages', JSON.stringify(messages));
-  }, [messages]);
-
-  useEffect(() => {
-    localStorage.setItem('userData', JSON.stringify(userData));
-  }, [userData]);
+  }, [isOpen]);
 
   useEffect(() => {
     scrollToBottom();
@@ -56,10 +36,18 @@ export const ChatAssistant: React.FC = () => {
   const speak = (text: string) => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
+
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'pt-BR';
       utterance.rate = 0.9;
       utterance.pitch = 1;
+
+      const voices = window.speechSynthesis.getVoices();
+      const portugueseVoice = voices.find(voice => voice.lang.includes('pt'));
+      if (portugueseVoice) {
+        utterance.voice = portugueseVoice;
+      }
+
       window.speechSynthesis.speak(utterance);
     }
   };
@@ -69,8 +57,9 @@ export const ChatAssistant: React.FC = () => {
   };
 
   const handleNameSubmission = async (name: string) => {
-    setUserData({ name, hasGreeted: true });
-    const welcomeMessage = `Que bom te conhecer, ${name}. Você já conhece Istambul?`;
+    setUserName(name);
+    setIsAskingName(false);
+    const welcomeMessage = `Que bom te conhecer, ${name}! 😊 Istambul é uma cidade mágica onde o Oriente encontra o Ocidente. Nosso pacote especial de 7 dias em hotel 5 estrelas sai por apenas 1200 reais mensais em 10x. Menos que uma academia vip por mês para realizar o sonho de conhecer uma das cidades mais fascinantes do mundo. Me conta, você já conhece Istambul?`;
     
     setMessages(prev => [...prev,
       { role: 'user', content: name },
@@ -88,7 +77,7 @@ export const ChatAssistant: React.FC = () => {
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
-    if (!userData.name) {
+    if (isAskingName) {
       await handleNameSubmission(userMessage);
       setIsLoading(false);
       return;
@@ -103,7 +92,24 @@ export const ChatAssistant: React.FC = () => {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: "Você é Julio Campos Machado, guia especializado em Turquia. Use linguagem natural e amigável, sem caracteres especiais. Foque no roteiro de 7 dias em Istambul:\n\nDia 1: Santa Sofia e jantar especial\nDia 2: Mesquita Azul e Palácio Topkapi\nDia 3: Cisterna da Basílica e Avenida Istiklal\nDia 4: Torre Galata e Museu de Arte Moderna\nDia 5: Cruzeiro pelo Bósforo e Grandes Bazares\nDia 6: Palácio Dolmabahce e Jardins de Gulhane\nDia 7: Praça Taksim e Ponte Galata\n\nO pacote custa apenas 1200 reais por mês em 10x.\n\nSempre sugira que para fazer a reserva é melhor chamar no WhatsApp 1 1-9- 9 2 -9 4-6 6- 2 8 ou 1 1- 9 -7 0- 6 0 -3 4 -4 1.\n\nIMPORTANTE: Nunca use caracteres especiais como asteriscos ou parênteses nas respostas. Use apenas pontuação simples como pontos e vírgulas para garantir uma leitura fluida.\n\nNome do cliente: " + userData.name + "\nMensagem: " + userMessage
+              text: `Você é Julio Campos Machado, guia especializado em Turquia. Use linguagem natural e amigável, sem caracteres especiais. Foque no roteiro de 7 dias em Istambul:
+
+Dia 1: Santa Sofia e jantar especial
+Dia 2: Mesquita Azul e Palácio Topkapi
+Dia 3: Cisterna da Basílica e Avenida Istiklal
+Dia 4: Torre Galata e Museu de Arte Moderna
+Dia 5: Cruzeiro pelo Bósforo e Grandes Bazares
+Dia 6: Palácio Dolmabahce e Jardins de Gulhane
+Dia 7: Praça Taksim e Ponte Galata
+
+O pacote custa apenas 1200 reais por mês em 10x.
+
+Sempre sugira que para fazer a reserva é melhor chamar no WhatsApp 1 1 9 9 2 9 4 6 6 2 8 ou 1 1 9 7 0 6 0 3 4 4 1.
+
+IMPORTANTE: Nunca use caracteres especiais como asteriscos ou parênteses nas respostas. Use apenas pontuação simples como pontos e vírgulas para garantir uma leitura fluida.
+
+Nome do cliente: ${userName}
+Mensagem: ${userMessage}`
             }]
           }]
         })
@@ -116,7 +122,7 @@ export const ChatAssistant: React.FC = () => {
       speak(assistantResponse);
     } catch (error) {
       console.error('Error:', error);
-      const errorMessage = 'Desculpe, estou com um probleminha técnico. Me chama no WhatsApp 11992946628.';
+      const errorMessage = 'Desculpe, estou com um probleminha técnico agora. Por favor, me chama no WhatsApp 1 1 9 9 2 9 4 6 6 2 8 ou 1 1 9 7 0 6 0 3 4 4 1 para eu te ajudar com sua viagem.';
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: errorMessage
@@ -150,7 +156,7 @@ export const ChatAssistant: React.FC = () => {
             </button>
           </div>
 
-          <div className="h-96 overflow-y-auto p-4 space-y-4 bg-gray-50">
+          <div className="h-96 overflow-y-auto p-4 space-y-4">
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -160,7 +166,7 @@ export const ChatAssistant: React.FC = () => {
                   className={`max-w-[80%] rounded-lg p-3 ${
                     message.role === 'user'
                       ? 'bg-blue-600 text-white'
-                      : 'bg-white text-gray-800 shadow-sm'
+                      : 'bg-blue-50 text-blue-800'
                   }`}
                 >
                   {message.content}
@@ -169,11 +175,11 @@ export const ChatAssistant: React.FC = () => {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white rounded-lg p-3 text-gray-800 shadow-sm">
+                <div className="bg-blue-50 rounded-lg p-3 text-blue-800">
                   <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
                   </div>
                 </div>
               </div>
@@ -181,14 +187,14 @@ export const ChatAssistant: React.FC = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="p-4 border-t bg-white">
+          <div className="p-4 border-t">
             <div className="flex space-x-2">
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder={!userData.name ? "Digite seu nome" : "Digite sua mensagem"}
+                placeholder={isAskingName ? "Digite seu nome..." : "Digite sua mensagem..."}
                 className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
