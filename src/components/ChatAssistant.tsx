@@ -6,28 +6,48 @@ interface Message {
   content: string;
 }
 
+interface UserData {
+  name: string;
+  hasGreeted: boolean;
+}
+
 export const ChatAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [userName, setUserName] = useState('');
-  const [isAskingName, setIsAskingName] = useState(true);
+  const [userData, setUserData] = useState<UserData>(() => {
+    const saved = localStorage.getItem('userData');
+    return saved ? JSON.parse(saved) : { name: '', hasGreeted: false };
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
   const API_KEY = "AIzaSyAuFi5KtPsMJI5IC8c5FjvYD5IbuBdwH_U";
 
   useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      const initialMessage = {
-        role: 'assistant',
-        content: 'Oi, eu sou Julio Campos Machado, especialista em viagens para Turquia. Para começarmos nossa conversa, qual é o seu nome?'
-      };
-      setMessages([initialMessage]);
-      speak(initialMessage.content);
+    if (isOpen) {
+      const savedMessages = localStorage.getItem('chatMessages');
+      if (savedMessages) {
+        setMessages(JSON.parse(savedMessages));
+      } else if (!userData.hasGreeted) {
+        const initialMessage = {
+          role: 'assistant',
+          content: 'Oi, eu sou Julio Campos Machado, especialista em viagens para Turquia. Para começarmos nossa conversa, qual é o seu nome?'
+        };
+        setMessages([initialMessage]);
+        speak(initialMessage.content);
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, userData.hasGreeted]);
+
+  useEffect(() => {
+    localStorage.setItem('chatMessages', JSON.stringify(messages));
+  }, [messages]);
+
+  useEffect(() => {
+    localStorage.setItem('userData', JSON.stringify(userData));
+  }, [userData]);
 
   useEffect(() => {
     scrollToBottom();
@@ -36,18 +56,10 @@ export const ChatAssistant: React.FC = () => {
   const speak = (text: string) => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
-
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'pt-BR';
       utterance.rate = 0.9;
       utterance.pitch = 1;
-
-      const voices = window.speechSynthesis.getVoices();
-      const portugueseVoice = voices.find(voice => voice.lang.includes('pt'));
-      if (portugueseVoice) {
-        utterance.voice = portugueseVoice;
-      }
-
       window.speechSynthesis.speak(utterance);
     }
   };
@@ -57,9 +69,8 @@ export const ChatAssistant: React.FC = () => {
   };
 
   const handleNameSubmission = async (name: string) => {
-    setUserName(name);
-    setIsAskingName(false);
-    const welcomeMessage = `Que bom te conhecer, ${name}. Istambul é uma cidade mágica onde o Oriente encontra o Ocidente. Nosso pacote especial de 7 dias em hotel 5 estrelas sai por apenas 1200 reais mensais em 10x. Menos que uma academia vip por mês para realizar o sonho de conhecer uma das cidades mais fascinantes do mundo. Me conta, você já conhece Istambul?`;
+    setUserData({ name, hasGreeted: true });
+    const welcomeMessage = `Que bom te conhecer, ${name}. Você já conhece Istambul?`;
     
     setMessages(prev => [...prev,
       { role: 'user', content: name },
@@ -77,7 +88,7 @@ export const ChatAssistant: React.FC = () => {
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
-    if (isAskingName) {
+    if (!userData.name) {
       await handleNameSubmission(userMessage);
       setIsLoading(false);
       return;
@@ -92,23 +103,9 @@ export const ChatAssistant: React.FC = () => {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Você é Julio Campos Machado, guia especializado em Turquia. Use linguagem natural e amigável, sem caracteres especiais. Foque no roteiro de 7 dias em Istambul:
+              text: `Você é Julio Campos Machado, guia especializado em Turquia. Use linguagem natural e amigável, com respostas curtas e diretas. Foque no roteiro de 7 dias em Istambul por 1200 reais mensais em 10x. Para reservas, sugira WhatsApp 11992946628 ou 11970603441.
 
-Dia 1: Santa Sofia e jantar especial
-Dia 2: Mesquita Azul e Palácio Topkapi
-Dia 3: Cisterna da Basílica e Avenida Istiklal
-Dia 4: Torre Galata e Museu de Arte Moderna
-Dia 5: Cruzeiro pelo Bósforo e Grandes Bazares
-Dia 6: Palácio Dolmabahce e Jardins de Gulhane
-Dia 7: Praça Taksim e Ponte Galata
-
-O pacote custa apenas 1200 reais por mês em 10x.
-
-Sempre sugira que para fazer a reserva é melhor chamar no WhatsApp 1 1 9 9 2 9 4 6 6 2 8 ou 1 1 9 7 0 6 0 3 4 4 1.
-
-IMPORTANTE: Nunca use caracteres especiais como asteriscos ou parênteses nas respostas. Use apenas pontuação simples como pontos e vírgulas para garantir uma leitura fluida.
-
-Nome do cliente: ${userName}
+Nome do cliente: ${userData.name}
 Mensagem: ${userMessage}`
             }]
           }]
@@ -122,7 +119,7 @@ Mensagem: ${userMessage}`
       speak(assistantResponse);
     } catch (error) {
       console.error('Error:', error);
-      const errorMessage = 'Desculpe, estou com um probleminha técnico agora. Por favor, me chama no WhatsApp 1 1 9 9 2 9 4 6 6 2 8 ou 1 1 9 7 0 6 0 3 4 4 1 para eu te ajudar com sua viagem.';
+      const errorMessage = 'Desculpe, estou com um probleminha técnico. Me chama no WhatsApp 11992946628.';
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: errorMessage
@@ -194,7 +191,7 @@ Mensagem: ${userMessage}`
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder={isAskingName ? "Digite seu nome" : "Digite sua mensagem"}
+                placeholder={!userData.name ? "Digite seu nome" : "Digite sua mensagem"}
                 className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
