@@ -58,7 +58,17 @@ export const ChatAssistant: React.FC = () => {
     setUserName(name);
     localStorage.setItem('userName', name);
     setIsAskingName(false);
-    const welcomeMessage = `Oi ${name}! 😊 Nosso pacote para Istambul: 7 dias em hotel 5 estrelas por 1200 reais mensais em 10x. Você já conhece Istambul?`;
+    const welcomeMessage = `Oi ${name}! 😊 Sou especialista no nosso roteiro exclusivo de 7 dias em Istambul! O pacote inclui:
+
+- Hotel 5 estrelas no centro histórico
+- Café da manhã diário
+- 4 refeições especiais
+- Transfers e deslocamentos privativos
+- Seguro viagem completo
+- Assistência 24h
+- Guia especializado
+
+Tudo isso por apenas 1200 reais mensais em 10x! Como posso ajudar você a planejar sua viagem dos sonhos para Istambul?`;
     
     setMessages(prev => [...prev,
       { role: 'user', content: name },
@@ -91,7 +101,27 @@ export const ChatAssistant: React.FC = () => {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Você é Julio Campos Machado, guia especializado em Turquia. Use respostas curtas e objetivas, sem caracteres especiais. Foque no roteiro de 7 dias em Istambul por 1200 reais mensais em 10x. Para reservas, sugira chamar o Julio no email juliocamposmachado@gmail.com ou os telefones disponiveis no site.
+              text: `Você é Julio Campos Machado, guia especializado em Turquia da Like Look Viagens. Use respostas curtas e objetivas, sem caracteres especiais. Foque no nosso roteiro exclusivo de 7 dias em Istambul que inclui:
+
+- Hotel 5 estrelas no centro histórico
+- Café da manhã diário
+- 4 refeições especiais
+- Transfers e deslocamentos privativos
+- Seguro viagem completo
+- Assistência 24h
+- Guia especializado
+
+O pacote custa 1200 reais mensais em 10x. O roteiro inclui:
+
+Dia 1: Chegada e visita à Santa Sofia
+Dia 2: Mesquita Azul e Palácio Topkapi
+Dia 3: Cisterna da Basílica e Avenida İstiklal
+Dia 4: Torre Galata e Museu de Arte Moderna
+Dia 5: Cruzeiro pelo Bósforo e Grandes Bazares
+Dia 6: Palácio Dolmabahçe e Jardins Gulhane
+Dia 7: Praça Taksim e retorno
+
+Para reservas, sugira contato pelo email juliocamposmachado@gmail.com .
 
 Nome do cliente: ${userName}
 Mensagem: ${userMessage}`
